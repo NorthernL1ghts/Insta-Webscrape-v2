@@ -5,6 +5,12 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
+#Write Data to file.
+def write_csv(data):
+    with open ("instagram.csv",'a') as file:
+        writer = csv.writer(file)
+        writer.writerow( data['followers'], data["following"] ] )
+
 #Error Handling & Management.
 class Error:
     def __init__(self, error: str):
