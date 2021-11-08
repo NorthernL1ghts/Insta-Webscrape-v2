@@ -1,21 +1,19 @@
+#Instagram Webscraper Version V2.
 import requests
 import re
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-
+#Error Handling
 class Error:
-
     def __init__(self, error: str):
         self.error: str = error
 
     def log_error(self) -> None:
         print(self.error)
 
-
 class HTMLGetter:
-
     def __init__(self, url: str):
         self.url: str = url
 
@@ -35,9 +33,8 @@ class HTMLGetter:
         except RequestException as e:
             Error.log_error("Error during request to {} to {}").format(self.url, str(e))
 
-
+# Main Class.
 class InstagramHandler:
-
     def __init__(self, username: str):
         self.username: str = username
 
@@ -73,7 +70,6 @@ class InstagramHandler:
 
 
 class Parser:
-
     def __init__(self, raw_html: "bytes"):
         self.raw_html: "bytes" = raw_html
         self.soup: "bs4.BeautifulSoup" = BeautifulSoup(raw_html, "html.parser")
