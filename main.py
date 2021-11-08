@@ -1,11 +1,11 @@
-#Instagram Webscraper Version V2.
+#Instagram Webscraper Version Version 2.0
 import requests
 import re
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
-#Error Handling
+#Error Handling & Management.
 class Error:
     def __init__(self, error: str):
         self.error: str = error
@@ -54,21 +54,22 @@ class InstagramHandler:
 
     def get_number_of_followers(self, meta_tags: list) -> str:
         meta_tag = self.get_meta_tag_with_followers_and_following(meta_tags)
-        followers_pattern: "re" = re.compile(r"(\d{1,3}(\.\d[km])?|\d{1,4}) Followers")
+        followers_pattern: "re" = re.compile(r"(\d{1,3}(\.\d[km])?|\d{1,4}) Followers") #Do some simple concatination of strings such as Follower counts etc.
         match: "re" = re.search(pattern=followers_pattern, string=meta_tag)
         return match.group(0)
 
     def get_number_of_following(self, meta_tags: list) -> str:
         meta_tag = self.get_meta_tag_with_followers_and_following(meta_tags)
-        following_pattern: "re" = re.compile(r"(\d{1,3}(\.\d[km])?|\d{1,4}) Following")
+        following_pattern: "re" = re.compile(r"(\d{1,3}(\.\d[km])?|\d{1,4}) Following") #Do some simple concatination of number of people following.
         match: "re" = re.search(pattern=following_pattern, string=meta_tag)
         return match.group(0)
-
+    
+#Display user data using meta_Tags.
     def print_user_info(self, meta_tags: list) -> None:
         print("user {} has {} and is {}".format(self.instagram_username(), self.get_number_of_followers(meta_tags),
                                                 self.get_number_of_following(meta_tags)))
 
-
+#Parse Class for HTML.
 class Parser:
     def __init__(self, raw_html: "bytes"):
         self.raw_html: "bytes" = raw_html
